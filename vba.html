@@ -242,91 +242,76 @@
             object-fit: cover;
             border: 20px solid #3e3e3e;
         }
-
-       /* 右側文字區塊 */
         .promo-text-box {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* 垂直居中 */
-            align-items: flex-start; /* 關鍵：這行讓內容全部「靠左對齊」 */
+            justify-content: center;
+            align-items: flex-start;
             color: white;
-            padding: 0 80px; /* 增加左右內距，讓文字不要貼著邊框 */
+            padding: 0 80px; 
         }
-
-        /* 標題靠左 */
         .promo-text-box h2 {
             font-size: 42px;
             letter-spacing: 6px;
             margin-bottom: 20px;
-            text-align: left; /* 確保文字靠左 */
+            text-align: left;
         }
 
-        /* 段落靠左 */
         .promo-text-box p {
             font-size: 18px;
             line-height: 1.8;
             margin-bottom: 40px;
-            text-align: left; /* 確保文字靠左 */
+            text-align: left;
         }
 
-        /* 按鈕微調 */
         .promo-btn {
             background-color: #adc1c6;
             color: #3e3e3e;
             padding: 12px 60px;
             font-weight: bold;
             text-decoration: none;
-            display: inline-block; /* 確保位移效果能正常顯示 */
-            transition: all 0.3s ease; /* 讓所有變化在 0.3 秒內平滑發生 */
-            border: 1px solid transparent; /* 預留邊框空間，防止跳動 */
+            display: inline-block; 
+            transition: all 0.3s ease; 
+            border: 1px solid transparent; 
         }
 
         .promo-btn:hover {
-            background-color: #c9d6d9; /* 稍微變亮 */
-            transform: translateY(-5px); /* 關鍵：往上移動 5 像素 */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* 增加深色陰影，營造高度感 */
-            letter-spacing: 2px; /* 字距稍微撐開，更有質感 */
+            background-color: #c9d6d9; 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+            letter-spacing: 2px; 
         }
 
 
-      /* 6. 商品卡片區域 */
+      /* 商品卡片 */
         .product-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
-            /* 1. 增加間距：讓卡片之間呼吸空間更大，卡片自然就會縮小 */
             gap: 50px; 
-            /* 2. 增加內縮：讓整區不要貼齊 1200px 的邊緣，往內縮一點 */
             padding: 60px 80px; 
         }
         .product-card {
-                /* 修改第三張卡片的文字區塊 */
              display: flex;
             flex-direction: column;
-            height: 100%; /* 確保高度跟隔壁一樣 */
+            height: 100%; 
             position: relative;
-         /* 3. 限制單張卡片的最大寬度：防止在寬螢幕上無限放大 */ 
             max-width: 320px; 
-            margin: 0 auto; /* 讓縮小後的卡片在自己的格子裡居中 */
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* 使用更高級的轉場曲線 */
+            margin: 0 auto; 
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* 增加柔和的投影 */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-
-        /* 讓裡面的圖片在卡片被 hover 時放大 */
         .product-card:hover .product-img-wrapper img {
-            transform: scale(1.1); /* 圖片放大 10% */
+            transform: scale(1.1); 
         }
 
-       
-        /* 4. 調整圖片比例：確保圖片高度固定，看起來才整齊 */
         .product-img-wrapper {
             position: relative;
             width: 100%;
-            aspect-ratio: 4 / 5; /* 強制圖片維持 4:5 的比例，這是最電商的比例 */
+            aspect-ratio: 4 / 5;
             overflow: hidden;
             background-color: #fff;
         }
@@ -334,11 +319,11 @@
         .product-img-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* 確保產品去背圖不會被裁切到 */
-            padding: 20px; /* 給產品圖一點內距，不要貼死邊框，會變高級 */
+            object-fit: contain; 
+            padding: 20px; 
         }
        .product-info {
-            padding: 15px 5px; /* 給文字一點上下間距，左右留一點呼吸空間 */
+            padding: 15px 5px;
         }
 
         .product-name {
@@ -354,8 +339,8 @@
         }
 
         .original-price {
-            color: #999; /* 原價用灰色 */
-            margin-left: 8px; /* 跟特價拉開一點距離 */
+            color: #999; 
+            margin-left: 8px; 
         }
 
         .color-options {
@@ -368,12 +353,11 @@
             width: 14px;
             height: 14px;
             cursor: pointer;
-            /* 讓方塊看起來更精緻的設定 */
             transition: 0.2s;
         }
 
         .color-box:hover {
-            transform: scale(1.2); /* 滑鼠移上去稍微變大 */
+            transform: scale(1.2);
         }
 
 
@@ -394,114 +378,105 @@
         }
         .wishlist-btn i { font-size: 18px; color: #333; transition: 0.3s; }
 
-        /* JavaScript 觸發後的顏色 (點擊變紅) */
         .wishlist-btn.active i { color: #e74c3c; }
 
-        /* 顏色小方塊 */
         .color-options { display: flex; gap: 8px; margin-top: 10px; }
         .color-box { width: 15px; height: 15px; cursor: pointer; }
 
-        /* 第 3 張卡片的特殊文字樣式 */
         .promo-card h3 { font-size: 22px; margin: 15px 0 10px; line-height: 1.3; }
         .promo-card p { font-size: 14px; color: #666; margin-bottom: 15px; }
         .promo-link-btn {
             display: block; background: #8da05e; color: white;
             text-align: center; padding: 10px; font-weight: bold;
-            transition: all 0.3s ease; /* 平滑轉場 */
+            transition: all 0.3s ease; 
         }
         .promo-link-btn:hover {
-            background-color: #3e3e3e; /* 變成灰色 */
-            transform: translateY(-5px); /* 向上浮動 5px */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* 增加陰影 */
+            background-color: #3e3e3e; 
+            transform: translateY(-5px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
         }
 
 
-       /* 7. 頁尾 Footer 總體樣式 */
-.main-footer {
-    background-color: #333333; /* 圖片中的深灰色 */
-    color: #ffffff;
-    /* 關鍵修改：不使用 container，改用 calc 算出左右間距讓內容置中 */
-    padding: 60px calc((100% - 1200px) / 2) 20px; 
-    font-size: 14px;
-}
+       /* 頁尾*/
+        .main-footer {
+            background-color: #333333; 
+            color: #ffffff;
+            padding: 60px calc((100% - 1200px) / 2) 20px; 
+            font-size: 14px;
+        }
 
-.footer-grid {
-    display: grid;
-    /* 依照圖二比例：左右兩欄較寬，中間兩欄較窄 */
-    grid-template-columns: 1.5fr 1fr 1fr 1.5fr; 
-    gap: 60px; /* 增加間距讓排版更寬鬆高級 */
-    padding-bottom: 50px;
-}
+        .footer-grid {
+            display: grid;
+            
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr; 
+            gap: 60px; 
+            padding-bottom: 50px;
+        }
 
-.footer-column h4 {
-    font-size: 16px;
-    margin-bottom: 25px;
-    font-weight: bold;
-}
+        .footer-column h4 {
+            font-size: 16px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
 
-.footer-column p {
-    line-height: 1.8;
-    color: #e0e0e0;
-}
+        .footer-column p {
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+        .lang-selector { margin-top: 20px; font-size: 13px; }
 
-/* 語言選擇器 */
-.lang-selector { margin-top: 20px; font-size: 13px; }
+        .footer-column ul li {
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e0e0e0;
+            transition: 0.3s;
+        }
+        .footer-column ul li i { font-size: 10px; color: #fff; }
+        .footer-column ul li:hover { color: #ffffff; padding-left: 5px; } 
 
-/* 清單與箭頭 - 修正箭頭方向為 < */
-.footer-column ul li {
-    margin-bottom: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #e0e0e0;
-    transition: 0.3s;
-}
-.footer-column ul li i { font-size: 10px; color: #fff; }
-.footer-column ul li:hover { color: #ffffff; padding-left: 5px; } /* 懸浮時字變亮並微移 */
+        /* 社交圖示 */
+        .footer-social { display: flex; gap: 20px; margin-bottom: 30px; font-size: 18px; }
+        .footer-social a { color: white; transition: 0.3s; }
+        .footer-social a:hover { opacity: 0.7; }
 
-/* 社交圖示 */
-.footer-social { display: flex; gap: 20px; margin-bottom: 30px; font-size: 18px; }
-.footer-social a { color: white; transition: 0.3s; }
-.footer-social a:hover { opacity: 0.7; }
+        
+        .subscribe-form {
+            display: flex;
+            margin-top: 15px;
+            height: 45px; 
+        }
+        .subscribe-form input {
+            flex: 1;
+            padding: 0 15px;
+            border: none;
+            outline: none;
+        }
+        .subscribe-form button {
+            background-color: #d9534f; 
+            color: white;
+            padding: 0 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .subscribe-form button:hover { background-color: #c9302c; }
 
-/* 訂閱表單優化 */
-.subscribe-form {
-    display: flex;
-    margin-top: 15px;
-    height: 45px; /* 固定高度讓視覺更整齊 */
-}
-.subscribe-form input {
-    flex: 1;
-    padding: 0 15px;
-    border: none;
-    outline: none;
-}
-.subscribe-form button {
-    background-color: #d9534f; /* 圖片中的紅色 */
-    color: white;
-    padding: 0 25px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-.subscribe-form button:hover { background-color: #c9302c; }
-
-/* 底部版權列 */
-.footer-bottom {
-    border-top: 1px solid #555;
-    padding-top: 20px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* 因為父層 .main-footer 已經有 calc padding 了，這裡不需要再加 */
-}
-.payment-icons { display: flex; gap: 15px; align-items: center; }
-/* 讓支付圖示變白或保持原色（依據圖二建議） */
-.payment-icons img { height: 22px; } 
-.copyright { font-size: 12px; color: #999; }
+        /* 底部版權列 */
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .payment-icons { display: flex; gap: 15px; align-items: center; }
+        .payment-icons img { height: 22px; } 
+        .copyright { font-size: 12px; color: #999; }
 
     </style>
 </head>
