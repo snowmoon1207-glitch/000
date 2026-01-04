@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VBA 官網</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft JhengHei", sans-serif; }
+        body { background-color: #f9f9f9; color: #333; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* 導覽列 */
+        header {
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
+            width: 100%;
+        }
+
+        /* 綠色列 */
+        .top-bar {
+            background-color: #8da05e;
+            color: white;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            padding: 8px 50px;
+            font-size: 12px;
+            position: relative; 
+            height: 35px; 
+        }
+        .promo-text {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap; 
+        }
+        /* 社交圖示*/
+        .social-icons {
+            position: absolute;
+            left: 50px;
+            display: flex;
+            gap: 15px; 
+            align-items: center;
+        }
+        .social-icons a {
+            color: white; 
+            font-size: 14px;  
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            opacity: 0.7;
+        }
+        .brand-text {
+            position: absolute;
+            right: 50px;
+        }
+        /* 米色導覽列 */
+        .main-nav {
+            background-color: #f2ede4; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            border-bottom: 1px solid #ddd;
+        }
+        .logo img {
+            height: 35px; 
+            display: block;
+        }
+        .nav-links {
+        display: flex;
+        gap: 20px;
+    }
+    .nav-links li {
+        position: relative;
+        padding: 10px 0;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .nav-links li::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #333;
+        transition: 0.3s ease;
+    }
+    .nav-links li:hover::after {
+        width: 100%;
+    }
+    /* 下拉選單*/
+    .dropdown-menu {
+        position: absolute;
+        top: 100%; 
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background-color: #ffffff;
+        min-width: 150px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        border-radius: 4px;
+        padding: 10px 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        list-style: none; 
+    }
+    .nav-links li:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu li {
+        padding: 8px 20px !important;
+    }
+    .dropdown-menu li a {
+        font-size: 13px;
+        font-weight: normal;
+        color: #666;
+    }
+    .dropdown-menu li:hover a {
+        color: #8da05e;
+    }
+    /* 箭頭動畫 */
+    .nav-links li:hover i {
+        transform: rotate(180deg);
+        transition: 0.3s;
+    }
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 18px;
+            align-items: center;
+        }
+        .cart { position: relative; }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: #8b5742;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 5px;
+            font-size: 10px;
+        }
+
+
+        /* 主視覺 */
+        .hero {
+       
+            background-image: url('images/background.jpg'); 
+            background-size: cover;
+            background-position: center; 
+            height: 600px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 10%; 
+        }
+
+        .hero-content {
+            max-width: 500px; 
+            color: white; 
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5); 
+        }
+
+        .hero-content h1 {
+            font-size: 48px; 
+            margin-bottom: 20px;  
+            letter-spacing: 5px; 
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            line-height: 1.8; 
+            margin-bottom: 30px;
+        }
+        .hero-btn {
+            display: inline-block;
+            background-color: #ffffff; 
+            color: #333333 !important; 
+            padding: 12px 45px;
+            text-decoration: none; 
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 2px; 
+            border: none; 
+            cursor: pointer;  
+            transition: all 0.3s ease; 
+        }
+        .hero-btn:hover {
+            background-color: #f2ede4; 
+            transform: translateY(-3px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        /* 商品分類 */
+            .categories {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            padding: 80px 20px;
+        }
+        .cat-item {
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+        }
+        .cat-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        .cat-item:hover img {
+            transform: translateY(-5px);
+        }
+            
+        .cat-item p { font-size: 14px; }
+
+        /* 宣傳區塊*/
+        .promo-box {
+            display: flex;
+            margin: 0 8% 80px; 
+            background-color: #3e3e3e; 
+            height: 450px;
+            overflow: hidden;
+        }
+        .promo-image {
+            flex: 1.4;
+        }
+        .promo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 20px solid #3e3e3e;
+        }
+
+       /* 右側文字區塊 */
+        .promo-text-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直居中 */
+            align-items: flex-start; /* 關鍵：這行讓內容全部「靠左對齊」 */
+            color: white;
+            padding: 0 80px; /* 增加左右內距，讓文字不要貼著邊框 */
+        }
+
+        /* 標題靠左 */
+        .promo-text-box h2 {
+            font-size: 42px;
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+            text-align: left; /* 確保文字靠左 */
+        }
+
+        /* 段落靠左 */
+        .promo-text-box p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: left; /* 確保文字靠左 */
+        }
+
+        /* 按鈕微調 */
+        .promo-btn {
+            background-color: #adc1c6;
+            color: #3e3e3e;
+            padding: 12px 60px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block; /* 確保位移效果能正常顯示 */
+            transition: all 0.3s ease; /* 讓所有變化在 0.3 秒內平滑發生 */
+            border: 1px solid transparent; /* 預留邊框空間，防止跳動 */
+        }
+
+        .promo-btn:hover {
+            background-color: #c9d6d9; /* 稍微變亮 */
+            transform: translateY(-5px); /* 關鍵：往上移動 5 像素 */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* 增加深色陰影，營造高度感 */
+            letter-spacing: 2px; /* 字距稍微撐開，更有質感 */
+        }
+
+
+      /* 6. 商品卡片區域 */
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            /* 1. 增加間距：讓卡片之間呼吸空間更大，卡片自然就會縮小 */
+            gap: 50px; 
+            /* 2. 增加內縮：讓整區不要貼齊 1200px 的邊緣，往內縮一點 */
+            padding: 60px 80px; 
+        }
+        .product-card {
+                /* 修改第三張卡片的文字區塊 */
+             display: flex;
+            flex-direction: column;
+            height: 100%; /* 確保高度跟隔壁一樣 */
+            position: relative;
+         /* 3. 限制單張卡片的最大寬度：防止在寬螢幕上無限放大 */ 
+            max-width: 320px; 
+            margin: 0 auto; /* 讓縮小後的卡片在自己的格子裡居中 */
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* 使用更高級的轉場曲線 */
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* 增加柔和的投影 */
+        }
+
+        /* 讓裡面的圖片在卡片被 hover 時放大 */
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.1); /* 圖片放大 10% */
+        }
+
+       
+        /* 4. 調整圖片比例：確保圖片高度固定，看起來才整齊 */
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5; /* 強制圖片維持 4:5 的比例，這是最電商的比例 */
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 確保產品去背圖不會被裁切到 */
+            padding: 20px; /* 給產品圖一點內距，不要貼死邊框，會變高級 */
+        }
+       .product-info {
+            padding: 15px 5px; /* 給文字一點上下間距，左右留一點呼吸空間 */
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .price {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .original-price {
+            color: #999; /* 原價用灰色 */
+            margin-left: 8px; /* 跟特價拉開一點距離 */
+        }
+
+        .color-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .color-box {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            /* 讓方塊看起來更精緻的設定 */
+            transition: 0.2s;
+        }
+
+        .color-box:hover {
+            transform: scale(1.2); /* 滑鼠移上去稍微變大 */
+        }
+
+
+        /* Sale 標籤 */
+        .badge { 
+            position: absolute; top: 0; left: 0; 
+            background: #d9534f; color: white; 
+            padding: 4px 12px; font-size: 12px; z-index: 5;
+        }
+
+        /* 愛心按鈕 */
+        .wishlist-btn {
+            position: absolute; top: 15px; right: 15px;
+            background: white; border: none; width: 35px; height: 35px;
+            border-radius: 50%; cursor: pointer; z-index: 5;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .wishlist-btn i { font-size: 18px; color: #333; transition: 0.3s; }
+
+        /* JavaScript 觸發後的顏色 (點擊變紅) */
+        .wishlist-btn.active i { color: #e74c3c; }
+
+        /* 顏色小方塊 */
+        .color-options { display: flex; gap: 8px; margin-top: 10px; }
+        .color-box { width: 15px; height: 15px; cursor: pointer; }
+
+        /* 第 3 張卡片的特殊文字樣式 */
+        .promo-card h3 { font-size: 22px; margin: 15px 0 10px; line-height: 1.3; }
+        .promo-card p { font-size: 14px; color: #666; margin-bottom: 15px; }
+        .promo-link-btn {
+            display: block; background: #8da05e; color: white;
+            text-align: center; padding: 10px; font-weight: bold;
+            transition: all 0.3s ease; /* 平滑轉場 */
+        }
+        .promo-link-btn:hover {
+            background-color: #3e3e3e; /* 變成灰色 */
+            transform: translateY(-5px); /* 向上浮動 5px */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* 增加陰影 */
+        }
+
+
+       /* 7. 頁尾 Footer 總體樣式 */
+.main-footer {
+    background-color: #333333; /* 圖片中的深灰色 */
+    color: #ffffff;
+    /* 關鍵修改：不使用 container，改用 calc 算出左右間距讓內容置中 */
+    padding: 60px calc((100% - 1200px) / 2) 20px; 
+    font-size: 14px;
+}
+
+.footer-grid {
+    display: grid;
+    /* 依照圖二比例：左右兩欄較寬，中間兩欄較窄 */
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr; 
+    gap: 60px; /* 增加間距讓排版更寬鬆高級 */
+    padding-bottom: 50px;
+}
+
+.footer-column h4 {
+    font-size: 16px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.footer-column p {
+    line-height: 1.8;
+    color: #e0e0e0;
+}
+
+/* 語言選擇器 */
+.lang-selector { margin-top: 20px; font-size: 13px; }
+
+/* 清單與箭頭 - 修正箭頭方向為 < */
+.footer-column ul li {
+    margin-bottom: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e0e0e0;
+    transition: 0.3s;
+}
+.footer-column ul li i { font-size: 10px; color: #fff; }
+.footer-column ul li:hover { color: #ffffff; padding-left: 5px; } /* 懸浮時字變亮並微移 */
+
+/* 社交圖示 */
+.footer-social { display: flex; gap: 20px; margin-bottom: 30px; font-size: 18px; }
+.footer-social a { color: white; transition: 0.3s; }
+.footer-social a:hover { opacity: 0.7; }
+
+/* 訂閱表單優化 */
+.subscribe-form {
+    display: flex;
+    margin-top: 15px;
+    height: 45px; /* 固定高度讓視覺更整齊 */
+}
+.subscribe-form input {
+    flex: 1;
+    padding: 0 15px;
+    border: none;
+    outline: none;
+}
+.subscribe-form button {
+    background-color: #d9534f; /* 圖片中的紅色 */
+    color: white;
+    padding: 0 25px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.subscribe-form button:hover { background-color: #c9302c; }
+
+/* 底部版權列 */
+.footer-bottom {
+    border-top: 1px solid #555;
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* 因為父層 .main-footer 已經有 calc padding 了，這裡不需要再加 */
+}
+.payment-icons { display: flex; gap: 15px; align-items: center; }
+/* 讓支付圖示變白或保持原色（依據圖二建議） */
+.payment-icons img { height: 22px; } 
+.copyright { font-size: 12px; color: #999; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank" title="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://line.me" target="_blank" title="LINE">
+                    <i class="fa-regular fa-comment-dots"></i>
+                </a>
+                <a href="/stores" title="門市資訊">
+                    <i class="fa-solid fa-location-dot"></i>
+                </a>
+            </div>
+            <div class="promo-text">新會員輸入：APP15，即享15%折扣</div>
+            <div class="brand-text">VBA / v • basikaw × v • barasa</div>
+        </div>
+
+     <nav class="main-nav">
+    <div class="logo">
+        <img src="images/logo.svg" alt="VBA Logo">
+    </div>
+
+    <ul class="nav-links">
+        <li class="has-dropdown">
+            最新 <i class="fa-solid fa-chevron-down"></i>
+            <ul class="dropdown-menu">
+                <li><a href="#">本週新品</a></li>
+                <li><a href="#">熱銷排行</a></li>
+                <li><a href="#">聯名系列</a></li>
+            </ul>
+        </li>
+        <li class="has-dropdown">
+            女裝 <i class="fa-solid fa-chevron-down"></i>
+            <ul class="dropdown-menu">
+                <li><a href="#">外套與大衣</a></li>
+                <li><a href="#">上衣與襯衫</a></li>
+                <li><a href="#">褲裝與裙裝</a></li>
+            </ul>
+        </li>
+        <li>竹生 <i class="fa-solid fa-chevron-down"></i></li>
+        <li>石生 <i class="fa-solid fa-chevron-down"></i></li>
+        <li>配件 <i class="fa-solid fa-chevron-down"></i></li>
+        <li>聯絡我們</li>
+    </ul>
+
+   
+        </div>
+
+
+            <div class="nav-icons">
+            <a href="/search" title="搜尋"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="/login" title="會員登入"><i class="fa-regular fa-user"></i></a>
+            <a href="/cart" class="cart" title="購物車">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <small class="cart-count">12</small></a></div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+        <h1>竹笙，石聲</h1>
+        <p>從傳說出發，讓服裝翻譯台灣的山、濕氣、與陽光。<br>秋收冬藏，VBA竹笙新技術幫你儲存內在熱能，用石聲抵禦呼嘯寒風，走進高山針葉林。</p>
+        <a href="#" class="hero-btn">探索更多</a>
+        </div>
+    </section>
+
+    <section class="categories">
+    <div class="cat-item"><img src="images/new.jpg" alt="當季新品"><p>當季新品</p></div>
+    <div class="cat-item"><img src="images/shoes.jpg" alt="鞋款"><p>鞋款</p></div>
+    <div class="cat-item"><img src="images/top.jpg" alt="上衣"><p>上衣</p></div>
+    <div class="cat-item"><img src="images/bottom.jpg" alt="下著"><p>下著</p></div>
+    <div class="cat-item"><img src="images/acc.jpg" alt="配件"><p>配件</p></div>
+    <div class="cat-item"><img src="images/bag.jpg" alt="背包"><p>背包</p></div>
+</section>
+
+
+    <section class="promo-box">
+    <div class="promo-image">
+        <img src="images/content.jpg" alt="落石無聲">
+    </div>
+    <div class="promo-text-box">
+        <h2>落石，無聲</h2>
+        <p>把靜謐腳步帶進城市，<br>時尚與機能並存的漫步生活。</p>
+        <a href="#" class="promo-btn">探索更多</a>
+    </div>
+</section>
+
+<section class="products-section">
+    <div class="container product-container"> <div class="product-card">
+            <div class="product-img-wrapper">
+                <div class="badge">Sale 30%</div>
+                <button class="wishlist-btn" onclick="toggleHeart(this)">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+                <img src="images/uv.jpg" alt="UV 護目鏡">
+            </div>
+            <p>UV 護目鏡</p>
+            <p>$200 <del>$380</del></p>
+            <div class="color-options">
+                <span class="color-box" style="background: #331d1d;"></span>
+                <span class="color-box" style="background: #fff; border: 1px solid #ddd;"></span>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img-wrapper">
+                <div class="badge">Sale 20%</div>
+                <button class="wishlist-btn" onclick="toggleHeart(this)">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+                <img src="images/cap.jpg" alt="透氣遮陽帽">
+            </div>
+            <p>透氣遮陽帽</p>
+            <p>$200 <del>$250</del></p>
+            <div class="color-options">
+                <span class="color-box" style="background: #e74c3c;"></span>
+                <span class="color-box" style="background: #ccc;"></span>
+                <span class="color-box" style="background: #fff; border: 1px solid #ddd;"></span>
+                <span class="color-box" style="background: #333;"></span>
+            </div>
+        </div>
+
+        <div class="product-card promo-card">
+            <img src="images/vest.jpg" alt="秋冬裝備">
+            <div class="promo-info">
+                <h3>暖身結束，正檔開幕<br>全面升級秋冬裝備</h3>
+                <p>探索VBA的石聲全新秋季系列，打造專屬你的山系風格，邁步山林。</p>
+                <a href="#" class="promo-link-btn">探索更多</a>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+
+<footer class="main-footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <h4>關於我們</h4>
+            <p>以台灣卑南族的誕生神話為靈感，融合山林精神與現代機能設計，打造專屬於戶外生活的服飾品牌。</p>
+            <div class="lang-selector">
+                <p style="font-weight: bold; margin-bottom: 5px;">語言</p>
+                <p>繁體中文 (臺灣)</p>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h4>快速索引</h4>
+            <ul>
+                <li><i class="fa-solid fa-chevron-left"></i> 全部商品</li>
+                <li><i class="fa-solid fa-chevron-left"></i> 女性</li>
+                <li><i class="fa-solid fa-chevron-left"></i> 男性</li>
+                <li><i class="fa-solid fa-chevron-left"></i> 限時特惠</li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>會員相關</h4>
+            <ul>
+                <li><i class="fa-solid fa-chevron-left"></i> 我的帳號</li>
+                <li><i class="fa-solid fa-chevron-left"></i> 條款及細則</li>
+                <li><i class="fa-solid fa-chevron-left"></i> 常見問題</li>
+                <li><i class="fa-solid fa-chevron-left"></i> 隱私條款</li>
+            </ul>
+        </div>
+
+        <div class="footer-column subscribe-column">
+            <h4>追蹤獲得第一手優惠訊息</h4>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <h4>加入會員可享15%折扣</h4>
+            <div class="subscribe-form">
+                <input type="email" placeholder="Subscribe by email">
+                <button type="submit">送出</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="payment-icons">
+            <img src="images/mc.jpg" alt="master">
+            <img src="images/visa.jpg" alt="visa">
+            <img src="images/bit.jpg" alt="bitpay">
+            <img src="images/gpay.jpg" alt="gpay">
+        </div>
+        <div class="copyright">
+            .VBA © 2025 All rights reserved
+        </div>
+    </div>
+</footer>
+
+<script>
+        function toggleHeart(btn) {
+            btn.classList.toggle('active');
+            const icon = btn.querySelector('i');
+            if (btn.classList.contains('active')) {
+                icon.classList.replace('fa-regular', 'fa-solid');
+            } else {
+                icon.classList.replace('fa-solid', 'fa-regular');
+            }
+        }
+    </script>
+
+</body>
+</html>
